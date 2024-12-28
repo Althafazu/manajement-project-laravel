@@ -5,42 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+<style>
+    . {
+        font-family: Barlow;
+        font-weight: bold;
+    }
+    body {
+        background-image: url('{{ asset('assets/images/IMG_Background.jpg') }}'); 
+        background-repeat: no-repeat; 
+        background-size: cover;
+    }
+</style>
 <body>
     {{-- navbar --}}
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid justify-content-between">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('assets/image/logo.png') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-            </a>
-            <span class="navbar-text text-primary">Sistem Manajemen Project</span>
+    <nav class="navbar bg-body-tertiary shadow-sm">
+        <div class="container">
+            <img src="{{ asset('assets/images/logo.png') }}" alt="logo-polman-astra" class="mt-2 navbar-brand" style="{{  "height: 50px;" }}">
+            <span class="navbar-text mt-2">Sistem Manajemen Proyek</span>
         </div>
     </nav>
 
     {{-- body --}}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">Login</div>
-                    <form method="POST" action="/login">
-                        @csrf
-                        <div class="mt-3">
-                            <label for="username">Username</label>
-                            <input type="number" name="username" id="username" aria-describedby="username-help" autofocus required>
-                            <div id="username-help" class="form-text">Masukkan NIM atau NPK di sini...</div>
-                        </div>
-                        <div class="mt-3">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" required>
-                        </div>
-                        <div class="mt-3 btn btn-success"> Login </div>
-                    </form>
+    <div class="container mt-5">
+        <div class="row justify-content-end">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"> Login </h4>
+                        <hr>
+                        <form action="/login" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username <span class="text-danger">*</span> </label>
+                                <input type="text" name="username" id="username" class="form-control" aria-describedby="username-help" autofocus placeholder="NIM / NPK">
+                                @error('username')
+                                    <span id="username-help" class="form-text text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password <span class="text-danger">*</span> </label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                @error('password')
+                                    <span id="password-help" class="form-text text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <button class="mb-3 btn btn-success w-100"> Login </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 </html>
