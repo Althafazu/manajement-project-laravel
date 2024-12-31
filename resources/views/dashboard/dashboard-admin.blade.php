@@ -16,33 +16,8 @@
 <body>
     {{-- body --}}
     <div class="container mt-5">
-        <div class="row justify-content-end">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"> Login </h4>
-                        <hr>
-                        <form action="/login" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username <span class="text-danger">*</span> </label>
-                                <input type="text" name="username" id="username" class="form-control" aria-describedby="username-help" autofocus placeholder="NIM / NPK">
-                                @error('username')
-                                    <span id="username-help" class="form-text text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password <span class="text-danger">*</span> </label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                                @error('password')
-                                    <span id="password-help" class="form-text text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <button class="mb-3 btn btn-success w-100"> Login </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div>
+            
         </div>
     </div>
 

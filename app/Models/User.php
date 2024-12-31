@@ -30,4 +30,10 @@ class User extends Authenticatable
         }
         return null;
     }
+
+    // ambil data role user
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'roleId', 'roleId');
+    }
 }
