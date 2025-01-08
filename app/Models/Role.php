@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
     //
-    protected $table = 'role';
+
+    use HasFactory;
+    protected $table = 'msrole';
     
+    protected $primaryKey = 'rol_id';
+
+    protected $fillable = [
+        'rol_deskripsi', 
+        'rol_status'
+    ];
 }

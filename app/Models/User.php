@@ -11,20 +11,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 // Superclass User
 class User extends Authenticatable
 {
-    protected $table = 'users';
+    protected $table = 'msuser';
 
+    protected $primaryKey = 'usr_id';
     protected $fillable = [
-        'username', 'password', 'roleId', 'idKelompok', 'statusUser'
+        'usr_name', 'usr_password', 'rol_id', 'usr_status'
     ];
 
     protected $hidden = [
-        'password',
+        'usr_password',
     ];
 
     // method verifikasi username dan password
-    public static function verifyCredentials($username, $password)
+    public static function verifyCredentials($usr_id, $password)
     {
-        $user = self::where('username', $username)->first();
+        $user = self::where('usr_name', $usr_id)->first();
         if($user && hash::check($password, $user->password)) {
             return $user;
         }
@@ -34,6 +35,6 @@ class User extends Authenticatable
     // ambil data role user
     public function role()
     {
-        return $this->belongsTo(Role::class, 'roleId', 'roleId');
+        return $this->belongsTo(Role::class, 'rol_id', 'rol_id');
     }
 }

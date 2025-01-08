@@ -9,4 +9,11 @@ class Kelompok extends Model
     //
 
     protected $table = 'kelompok';
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = [ 
+        'nama_kelompok', 'status'
+    ];
+    
 }
