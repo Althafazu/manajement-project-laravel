@@ -38,12 +38,12 @@ Route::put('/project/{id}', [ProjectController::class,'update'])->name('projects
 
 
 /* Dashboard */
-// Route::middleware(['auth'])->group(function() {
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
+Route::middleware(['auth'])->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
-// Routes for mahasiswa
-Route::middleware(['auth', 'role:Mahasiswa'])->get('/dashboard', [DashboardController::class, 'mahasiswaDashboard'])->name('mahasiswa.dashboard');
-// Routes for admin
-Route::middleware(['auth', 'role:Admin'])->get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+// // Routes for mahasiswa
+// Route::middleware(['auth', 'role:Mahasiswa'])->get('/dashboard', [DashboardController::class, 'mahasiswaDashboard'])->name('mahasiswa.dashboard');
+// // Routes for admin
+// Route::middleware(['auth', 'role:Admin'])->get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 

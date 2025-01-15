@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Project;
+// use Illuminate\Container\Attributes\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -32,8 +34,10 @@ class LoginController extends Controller
         );
         
         $credentials = $request->only('username','password');
-
-        $user = User::verifyCredentials($credentials['username'], $credentials['password']);
+        // $user = User::verifyCredentials($credentials['username'], $credentials['password']);
+        
+        // mencari user dan password pada database
+        $user = User::where('usr_id', $credentials['username']) ->where('usr_password', $credentials['password'])->first();
         if ($user) {
             // Login berhasil
             Auth::login($user);
@@ -43,11 +47,9 @@ class LoginController extends Controller
 
             // Redirect berdasarkan role user
             if ($user->isRole('Mahasiswa')) {
-                // Jika Mahasiswa, arahkan ke dashboard Mahasiswa
-                return redirect()->route('mahasiswa.dashboard');
+                return redirect()->route('dashboard');
             } elseif ($user->isRole('Admin')) {
-                // Jika Admin, arahkan ke halaman Admin dengan semua projek
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('dashboard');
             }
         }
 
