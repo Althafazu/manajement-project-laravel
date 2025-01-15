@@ -18,7 +18,7 @@
     <x-navbar />
 
     {{-- panggil sidebar --}}
-    <x-sidebar />
+    {{-- <x-sidebar /> --}}
 
     {{-- body --}}
     <div class="container mt-5">
@@ -29,7 +29,6 @@
                     <hr>
                 </div>
                 <div class="card border-1 shadow-sm rounded p-3">
-                    <a href="{{ route('bombot.create') }}" class="btn btn-md btn-success mb-3">ADD MATERIAL</a>
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
@@ -40,26 +39,37 @@
                                 <th scope="col">Satuan</th>
                                 <th scope="col">Jumlah Aktual</th>
                                 <th scope="col">Harga Aktual</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($bombots as $bbt)
+                            <?php $no = 1; ?>
+                            @forelse ($bombot as $bbt)
                                 <tr>
+                                    <td><?= $no ?></td>
                                     <td>{{ $bbt->bbt_no_pp }}</td>
-                                    <td>{{ $bbt->bbt_nama }}</td>
+                                    <td>{{ $bbt->bbt_nama_material }}</td>
                                     <td>{{ $bbt->bbt_jumlah }}</td>
                                     <td>{{ $bbt->bbt_satuan }}</td>
-                                    <td>{{ $bbt->bbt_jumlah_aktual }}</td>
-                                    
+                                    <td>{{ $bbt->bbt_jumlah_actual }}</td>
                                     {{-- perhitungan harga * jumlah aktual --}}
-                                    <td>{{ "Rp." . number_format($bbt->bbt_jumlah * $bbt->bbt_harga, 2, ',', '.') }}</td>
-
+                                    <td>{{ "Rp." . number_format($bbt->bbt_jumlah_actual * $bbt->bbt_harga, 2, ',', '.') }}</td>
+                                    
+                                    <td class="text-center">
+                                        @if ($bbt->bbt_status == 'Belum Diproses')
+                                            <span class="badge text-bg-secondary">Belum Diproses</span>
+                                        @elseif ($bbt->bbt_status == 'Sudah Dijadikan PO')
+                                            <span class="badge text-bg-warning">Sudah Dijadikan PO</span>
+                                        @elseif ($bbt->bbt_status == 'Sudah Diterima')
+                                            <span class="badge text-bg-success">Sudah Diterima</span>
+                                        @endif
+                                    </td>
                                     {{-- action --}}
                                     <td>
                                         <form onsubmit="return confirm('Apakah anda yakin?');" action="{{ route('bombot.destroy', $bbt->bbt_id) }}" method="POST">
                                             <div class="d-grid gap-2">
-                                                <a href="{{ route('bombot.show', $bbt->bbt_id) }}" class="btn btn-sm btn-dark" onclick="event.stopPropagation();">SHOW</a> 
+                                                {{-- <a href="{{ route('bombot.show', $bbt->bbt_id) }}" class="btn btn-sm btn-dark" onclick="event.stopPropagation();">SHOW</a>  --}}
                                                 <a href="{{ route('bombot.edit', $bbt->bbt_id) }}" class="btn btn-sm btn-primary" onclick="event.stopPropagation();">EDIT</a>
                                                 @csrf
                                                 @method('DELETE')
@@ -67,6 +77,7 @@
                                             </form> 
                                         </div>
                                     </td>
+                                    <?php $no++; ?>
                                 </tr>
                             @empty
                                 <div class="alert alert-danger">
@@ -75,6 +86,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <a href="{{ route('bombot.create') }}" class="btn btn-md btn-success mb-3">ADD MATERIAL</a>
                 </div>
             </div>
         </div>

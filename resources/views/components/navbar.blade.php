@@ -1,6 +1,6 @@
 {{-- navbar --}}
 <nav class="navbar bg-body-tertiary shadow-sm">
-    <div class="container justify-content-between">
+    <div class="container-fluid justify-content-between">
         {{-- branding almighty ASTRATECH, oh god i love ASTRATECH real not fake 😍😍😍😍😍 --}}
         <img src="{{ asset('assets/images/logo.png') }}" alt="logo-polman-astra" class="mt-2 navbar-brand" style="{{  "height: 70px;" }}">
         <span class="navbar-text mt-2">Sistem Manajemen Proyek</span>

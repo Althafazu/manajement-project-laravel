@@ -18,23 +18,60 @@
     <x-navbar />
 
     {{-- panggil sidebar --}}
-    <x-sidebar />
+    {{-- <x-sidebar /> --}}
 
     {{-- body --}}
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-12">
-                <div>
-                    <h3 class="text-center my-4">Tambah Data Bom & BOT</h3>
-                    <hr>
-                </div>
                 <div class="card">
-                    <div class="card-body col-md-10">
+                    <div class="card-body">
+                        <div>
+                            <h3 class="text-center my-4">Tambah Data Bom & BOT</h3>
+                            <hr>
+                        </div>
+
+                        {{-- form --}}
                         <form action="{{ route('bombot.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="font-weight-bold">NAMA MATERIAL</label>
-                                <input type="text" name="nama_material" class="form-control" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="font-weight-bold">Nomor Permintaan Pembelian</label>
+                                        <input type="text" name="bbt_no_pp" class="form-control" required placeholder="PP-001">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="font-weight-bold">Nama Material</label>
+                                <input type="text" name="bbt_nama_material" class="form-control" required placeholder="Material A">
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="font-weight-bold">Jumlah</label>
+                                        <input type="number" name="bbt_jumlah" class="form-control" required placeholder="0">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="font-weight-bold">Satuan</label>
+                                        <input type="text" name="bbt_satuan" class="form-control" required placeholder="pcs / lusin / dsb.">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="font-weight-bold">Jumlah Aktual</label>
+                                <input type="number" name="bbt_jumlah_actual" class="form-control" required placeholder="0">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="font-weight-bold">Harga</label>
+                                <input type="number" name="bbt_harga" class="form-control" required placeholder="0">
+                            </div>
+
+                            {{-- button --}}
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                                <button class="btn btn-warning" type="reset">Batal</button>
+                                <a href="{{ route('bombot.index') }}" class="btn btn-secondary" onclick="event.stopPropagation();">Back</a>
                             </div>
                         </form> 
                     </div>
