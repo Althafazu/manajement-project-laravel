@@ -18,4 +18,8 @@ class Role extends Model
         'rol_deskripsi', 
         'rol_status'
     ];
+
+    public function users() {
+        return $this->hasMany(User::class, 'rol_id', 'rol_id');
+    }
 }

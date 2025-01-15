@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BombotController;
 use App\Http\Controllers\DashboardController;
@@ -10,8 +11,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
+// Route::get('/login', [LoginController::class, 'index'])->name('login');
+// Route::post('/login', [LoginController::class, 'authenticate']);
 
 /* Bombot */
 // create
@@ -27,14 +28,18 @@ Route::put('/bombot/{id}', [BombotController::class,'update'])->name('bombot.upd
 // delete
 Route::delete('/bombot/{id}', [BombotController::class, 'destroy'])->name('bombot.destroy');
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 /* Projek */
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/project/create', [ProjectController::class, 'create'])->name('projects.create');
 Route::post('/project', [ProjectController::class, 'store'])->name('projects.store');
 Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
 Route::put('/project/{id}', [ProjectController::class,'update'])->name('projects.update'); //update produk
+
+
+/* Autentikasi Login */
+Route::get('/login', [AuthController::class, 'index'])->name('login.index');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout.perform');
 
 
 /* Dashboard */

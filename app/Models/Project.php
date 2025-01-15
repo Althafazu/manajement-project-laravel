@@ -41,6 +41,11 @@ class Project extends Model
         $this->attributes['prj_jenis'] = in_array($value, $allowedJenis) ? $value : 'Internal';
     }
 
+
+    public function kelompoks() 
+    {
+        return $this->hasMany(Kelompok::class, 'kel_id', 'kel_id');    
+    }
     // public function gamteks()
     // {
     //     return $this->hasMany(Gamtek::class, 'prj_id', 'prj_id');
