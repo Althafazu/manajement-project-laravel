@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BombotController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,15 @@ Route::get('/project/create', [ProjectController::class, 'create'])->name('proje
 Route::post('/project', [ProjectController::class, 'store'])->name('projects.store');
 Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
 Route::put('/project/{id}', [ProjectController::class,'update'])->name('projects.update'); //update produk
+
+
+/* Dashboard */
+// Route::middleware(['auth'])->group(function() {
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// });
+
+// Routes for mahasiswa
+Route::middleware(['auth', 'role:Mahasiswa'])->get('/dashboard', [DashboardController::class, 'mahasiswaDashboard'])->name('mahasiswa.dashboard');
+// Routes for admin
+Route::middleware(['auth', 'role:Admin'])->get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+

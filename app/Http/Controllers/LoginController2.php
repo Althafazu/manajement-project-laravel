@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LoginLog;
 use App\Models\User;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginController2 extends Controller
 {
     public function index()
     {
         return view("login.index", [
             'title' => 'Login',
             'active' => 'login'
-        ]);    
+        ]);
     }
 
+    // fungsi autentikasi login user
     public function authenticate(Request $request)
     {
         $request->validate
@@ -30,44 +31,46 @@ class LoginController extends Controller
                 'password.min' => 'Password minimal 8 karakter.'
             ]
         );
-        
+
+        // mengambil kredensial dari input user
         $credentials = $request->only('username','password');
 
-        $user = User::verifyCredentials($credentials['username'], $credentials['password']);
-        if ($user) {
-            // Login berhasil
-            Auth::login($user);
+        //jika berhasil maka buka dashboard
+        if (Auth::attempt($credentials)) {
+            
+            // catat login ke dalam log
+            LoginLog::create([
+                'user_id' => Auth::id(),
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->header('User-Agent'),
+            ]);
 
-            // Perbarui session
             $request->session()->regenerate();
-
-            // Redirect berdasarkan role user
-            if ($user->isRole('Mahasiswa')) {
-                // Jika Mahasiswa, arahkan ke dashboard Mahasiswa
-                return redirect()->route('mahasiswa.dashboard');
-            } elseif ($user->isRole('Admin')) {
-                // Jika Admin, arahkan ke halaman Admin dengan semua projek
-                return redirect()->route('admin.dashboard');
-            }
+ 
+            return redirect()->intended('dashboard');
         }
-
-        // Jika gagal login, kembalikan dengan error
+        
+        // jika gagal maka muncul pesan error
         return back()->withErrors([
             'login' => 'Username atau password salah.',
         ])->withInput($request->except('password'));
     }
-    
-    // Fungsi logout
+
+    // fungsi logout
     public function logout(Request $request)
     {
-        // Logout user
+        // catat logout ke dalam log
+        $latestLog = LoginLog::where('user_id', Auth::id())->latest()->first();
+        if ($latestLog) {
+            $latestLog->update(['logout_time' => now()]);
+        }
+
         Auth::logout();
-        
-        // Invalidasi session dan perbarui token
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
-        // Redirect ke halaman login
+
         return redirect()->route('login');
     }
+    
 }
