@@ -13,7 +13,7 @@
             <div class="text-end">
                 @if (auth()->check())
                 <p class="fw-bold mx-0 my-0">
-                    {{ auth()->user()->username }} ({{ auth()->user()->role->roleName }})
+                    {{-- {{ auth()->user()->username }} ({{ auth()->user()->role->roleName }}) --}}
                 </p>
                 @endif
             </div>

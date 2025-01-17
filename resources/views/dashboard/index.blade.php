@@ -63,6 +63,7 @@
                                 <td>{{ $project->prj_deadline }}</td>
                                 <td>
                                     <a href="{{ route('projects.edit', $project->prj_id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                    <a href="{{ route('', $project->prj_id) }}" class="btn btn-sm btn-primary">OPEN</a>
                                 </td>
                             </tr>
                             @endforeach

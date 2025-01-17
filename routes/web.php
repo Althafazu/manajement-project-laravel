@@ -20,11 +20,10 @@ Route::get('/bombot/create', [BombotController::class, 'create'])->name('bombot.
 Route::post('/bombot', [BombotController::class, 'store'])->name('bombot.store');
 // read
 Route::get('/bombots', [BombotController::class, 'index'])->name('bombot.index');
+// Route::get('/bombots/{id}', [BombotController::class, 'index'])->name('bombot.index');
 // update
 Route::get('/bombot/{id}/edit', [BombotController::class, 'edit'])->name('bombot.edit');
-Route::put('/bombot/{id}', [BombotController::class,'update'])->name('bombot.update'); //update produk
-
-
+Route::put('/bombot/{id}', [BombotController::class,'update'])->name('bombot.update'); 
 // delete
 Route::delete('/bombot/{id}', [BombotController::class, 'destroy'])->name('bombot.destroy');
 

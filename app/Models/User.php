@@ -19,13 +19,11 @@ class User extends Authenticatable
     // Method untuk verifikasi username dan password
     public static function verifyCredentials($usr_id, $password)
     {
-        $user = self::where('usr_id', $usr_id)->first();
-        
-        // Cek apakah user ada dan passwordnya sesuai
-        if ($user && $user->usr_password === $password) {
-            return $user;
-        }
-        return null;
+        // Mencari user berdasarkan usr_id dan password
+        $user = self::where('usr_id', $usr_id)
+                    ->where('usr_password', $password)
+                    ->first();
+        return $user;
     }
 
     // Relasi dengan model Role

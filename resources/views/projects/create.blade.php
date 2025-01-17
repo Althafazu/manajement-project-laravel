@@ -57,6 +57,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <button type="reset" class="btn btn-warning">Batal</button>
+                            <a href="{{ url('/dashboard') }}" class="btn btn-secondary">Kembali</a>
                         </form>
                     </div>
                 </div>

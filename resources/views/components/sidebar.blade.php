@@ -6,22 +6,22 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('') }}" class="nav-link">
+            {{-- <a href="{{ route('') }}" class="nav-link">
                 Detail Proyek (SPK)
-            </a>
+            </a> --}}
         </li>
         <li class="nav-item">
-            <a href="{{ route('') }}" class="nav-link">
+            {{-- <a href="{{ route('') }}" class="nav-link">
                 Actual Plan
-            </a>
+            </a> --}}
         </li>
         <li class="nav-item">
-            <a href="{{ route('') }}" class="nav-link">
+            {{-- <a href="{{ route('') }}" class="nav-link">
                 Gambar Teknik
-            </a>
+            </a> --}}
         </li>
         <li class="nav-item">
-            <a href="{{ route('') }}" class="nav-link">
+            <a href="{{ route('/bombot/1') }}" class="nav-link">
                 BOM & BOT
             </a>
         </li>

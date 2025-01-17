@@ -12,14 +12,18 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $role = $user->role->rol_deskripsi;
+        // dd($user);
+        // dd($role);
+        
 
-        if ($role === 'Mahasiswa') {
+        if ($role == 'Mahasiswa') {
             $kelompok = $user->kelompok;
             $project = $kelompok ? $kelompok->project : null;
-            return view('dashboard.mahasiswa', compact('project'));
-        } elseif ($role === 'Admin') {
+            $projects = $project ? collect([$project]) : collect();
+            return view('dashboard.index', compact('projects'));
+        } elseif ($role == 'Admin') {
             $projects = Project::all();
-            return view('dashboard.admin', compact($projects));
+            return view('dashboard.index', compact('projects'));
         } else {
             return abort(403, 'Unathorized Action');
         }

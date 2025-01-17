@@ -33,8 +33,8 @@
                         <form action="/login" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="usr_id" class="form-label"> NIM / NPK <span class="text-danger">*</span> </label>
-                                <input type="text" name="usr_id" id="usr_id" class="form-control" aria-describedby="usr_id-help" autofocus placeholder="NIM / NPK">
+                                <label for="usr_id" class="form-label"> Username <span class="text-danger">*</span> </label>
+                                <input type="text" name="usr_id" id="usr_id" class="form-control" aria-describedby="usr_id-help" autofocus placeholder="Username">
                                 @error('usr_id')
                                     <span id="usr_id-help" class="form-text text-danger">{{ $message }}</span>
                                 @enderror
