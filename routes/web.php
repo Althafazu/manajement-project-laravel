@@ -34,20 +34,15 @@ Route::post('/project', [ProjectController::class, 'store'])->name('projects.sto
 Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
 Route::put('/project/{id}', [ProjectController::class,'update'])->name('projects.update'); //update produk
 
+Route::middleware('web')->group(function () {
+    /* Autentikasi Login */
+    Route::get('/login', [AuthController::class, 'index'])->name('login.index');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-/* Autentikasi Login */
-Route::get('/login', [AuthController::class, 'index'])->name('login.index');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout.perform');
-
-
-/* Dashboard */
-Route::middleware(['auth'])->group(function() {
+    /* Dashboard */
+    Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-// // Routes for mahasiswa
-// Route::middleware(['auth', 'role:Mahasiswa'])->get('/dashboard', [DashboardController::class, 'mahasiswaDashboard'])->name('mahasiswa.dashboard');
-// // Routes for admin
-// Route::middleware(['auth', 'role:Admin'])->get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
-
+ });

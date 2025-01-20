@@ -18,17 +18,21 @@ class AuthController extends Controller
         $request->validate([
             'usr_id' => 'required|string',
             'password' => 'required|string',
+        ], [
+            'usr_id.required' => 'Nama Pengguna wajib diisi',
+            'password.required' => 'Password wajib diisi',
         ]);
-        
-        if ($request->session()->token() !== $request->_token) 
-            return back()->withErrors(['login' => 'CSRF token mismatch.'])->withInput();
 
         $user = User::verifyCredentials($request->usr_id, $request->password);
+        // dd($user);
 
         if(!$user)
         {
-            return back()->withErrors(['login' => 'Username atau password salah.', ])->withInput($request->except('password'));
+            sleep(1);
+            return back()->withErrors(['login' => 'Username atau password salah.', ])
+            ->withInput($request->except('password'));
         }
+        
         Auth::login($user); 
         $request->session()->regenerate(); 
         
@@ -51,14 +55,6 @@ class AuthController extends Controller
             $request->session()->regenerateToken();
             
             // Redirect ke halaman login
-            return redirect()->route('login');
+            return redirect()->route('login')->with('Success', 'Anda telah berhasil logout');
         }
 }
-
-/* 
-if (!$user) {
-    return response()->json(['message' => 'Login failed'], 401);
-}
-
-// Return role and other user information
-return response()->json(['role' => $user->role->role_name, 'message' => 'Login successful']); */

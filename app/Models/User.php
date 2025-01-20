@@ -13,7 +13,7 @@ class User extends Authenticatable
     protected $table = 'msuser';
     protected $primaryKey = 'usr_id';
     protected $fillable = [
-        'usr_name', 'usr_password', 'rol_id', 'usr_status', 'kel_id'
+        'usr_name', 'kel_id','usr_password', 'rol_id', 'usr_status' 
     ];
 
     // Method untuk verifikasi username dan password

@@ -59,11 +59,13 @@
                                         <span class="badge bg-secondary">Tidak Diketahui</span>
                                     @endif
                                 </td>
-                                <td>{{ $project->prj_start_date }}</td>
-                                <td>{{ $project->prj_deadline }}</td>
+                                <td>{{ \Carbon\Carbon::parse($project->prj_start_date)->setTimezone('Asia/Jakarta')->translatedFormat('j F Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($project->prj_deadline)->setTimezone('Asia/Jakarta')->translatedFormat('j F Y') }}</td>
+                                {{-- <td>{{ $project->prj_start_date }}</td> --}}
+                                {{-- <td>{{ $project->prj_deadline }}</td> --}}
                                 <td>
                                     <a href="{{ route('projects.edit', $project->prj_id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                    <a href="{{ route('', $project->prj_id) }}" class="btn btn-sm btn-primary">OPEN</a>
+                                    {{-- <a href="{{ route('', $project->prj_id) }}" class="btn btn-sm btn-primary">OPEN</a> --}}
                                 </td>
                             </tr>
                             @endforeach
