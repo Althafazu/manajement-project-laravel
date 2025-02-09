@@ -6,14 +6,14 @@
         <span class="navbar-text mt-2">Sistem Manajemen Proyek</span>
         
         {{-- Sidebar Button --}}
-        <button class="btn btn-outline-secondary" id="sidebarToggle"> ☰ </button>
+        {{-- <button class="btn btn-outline-secondary" id="sidebarToggle"> ☰ </button> --}}
         
         {{-- user info --}}
         <div class="d-flex justify-content-end">
             <div class="text-end">
                 @if (auth()->check())
                 <p class="fw-bold mx-0 my-0">
-                    {{-- {{ auth()->user()->username }} ({{ auth()->user()->role->roleName }}) --}}
+                    {{ auth()->user()->usr_name }} ({{ auth()->user()->role->rol_deskripsi   }})
                 </p>
                 @endif
             </div>

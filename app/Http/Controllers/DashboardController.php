@@ -21,8 +21,9 @@ class DashboardController extends Controller
             $project = $kelompok ? $kelompok->project : null;
             $projects = $project ? collect([$project]) : collect();
             return view('dashboard.index', compact('projects'));
-        } elseif ($role == 'Admin') {
+        } else if ($role == 'Admin') { 
             $projects = Project::all();
+            dd($projects);
             return view('dashboard.index', compact('projects'));
         } else {
             return abort(403, 'Unathorized Action');

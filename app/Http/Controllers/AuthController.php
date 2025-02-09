@@ -24,7 +24,6 @@ class AuthController extends Controller
         ]);
 
         $user = User::verifyCredentials($request->usr_id, $request->password);
-        // dd($user);
 
         if(!$user)
         {

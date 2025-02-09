@@ -24,8 +24,23 @@ class BombotController extends Controller
      * @return void
      */
 
-    public function index() : View
+    public function index(Request $request) : View
     {
+        $query = Bombot::query();
+
+        // fitur searching 
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('bbt_no_pp', 'LIKE', "%{$search}%")->orWhere('bbt_nama_material', 'LIKE', "%{$search}%");
+            }); 
+        }
+
+        // Filter
+        if ($request->has('status') && $request->status != 'all') {
+            $query->where('bbt_status', $request->status);
+        }
+
         // ambil semua data bom & bot dari database sejumlah 10 
         $bombot = Bombot::paginate(10);
         // tampilkan view index dan passing data bom & bot
@@ -35,6 +50,12 @@ class BombotController extends Controller
     public function create() : View 
     {
         return view('bombot.create');
+    }
+
+    public function detail(string $id) : View
+    {
+        $bombot = Bombot::findOrFail($id);
+        return view('bombot.detail', compact('bombot'));
     }
 
     public function store(Request $request): RedirectResponse
